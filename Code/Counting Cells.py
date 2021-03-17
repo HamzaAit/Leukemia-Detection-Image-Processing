@@ -52,14 +52,9 @@ ax[2].set_title("Binary")
 plt.show()
 
 # th2 = cv2.adaptiveThreshold(gim,255,cv2.ADAPTIVE_THRESH_MEAN_C,cv2.THRESH_BINARY,11,2)
-# gim = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
 # bim = cv2.GaussianBlur(gim, (9, 9), 0)
 # bim = cv2.adaptiveThreshold(gim, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
 # ret, bim = cv2.threshold(gim,100,255,cv2.THRESH_BINARY)
-
-# plt.figure(2)
-# plt.imshow(bim, 'gray')
-# plt.show()
 
 # Saving the binary image under a folder called Threshold, where we will be keeping the binary version of the dataset
 cv2.imwrite('../Dataset/Multiple Cells/Blast/Threshold/Im001_1.png', bimarr)
