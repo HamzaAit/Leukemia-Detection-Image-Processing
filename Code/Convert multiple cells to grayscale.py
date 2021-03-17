@@ -8,26 +8,30 @@ import scipy.io as sio
 from skimage import data
 from skimage.color import rgb2gray
 
-# im = Image.open("../Dataset/Multiple Cells/Blast/Im001_1.jpg")
+# Opening the original image
 im = cv2.imread("../Dataset/Multiple Cells/Blast/Original/Im001_1.jpg")
 
+# Setting up the figures window
 fig, axes = plt.subplots(1, 3, figsize=(14, 6))
 ax = axes.ravel()
 
+# Adding the original image to the list of figures shown, titled "Original"
 ax[0].imshow(im)
 ax[0].set_title("Original")
+
+# Converting the image to grayscale, then adding it to the list of figures titled "Grayscale"
 
 # gim = rgb2gray(im)
 # gim *= 255
 gim = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
-# plt.figure(0)
-# plt.imshow(gim, cmap=plt.cm.gray)
-# plt.show()
 
 ax[1].imshow(gim, cmap=plt.cm.gray)
 ax[1].set_title("Grayscale")
 
+# We save the grayscale image under a folder where we will keep the grayscale versions of the dataset
 cv2.imwrite('../Dataset/Multiple Cells/Blast/Grayscale/Im001_1.png', gim)
+
+# Converting the grayscale image to binary, then adding it to the list of figures under title "Binary"
 
 thresh = 150
 
@@ -43,9 +47,6 @@ for i in range (bimarr.shape[0]):
 bim = Image.fromarray(bimarr)
 
 
-# plt.figure(1)
-# plt.imshow(bim, 'gray')
-
 ax[2].imshow(bim, 'gray')
 ax[2].set_title("Binary")
 plt.show()
@@ -60,6 +61,7 @@ plt.show()
 # plt.imshow(bim, 'gray')
 # plt.show()
 
+# Saving the binary image under a folder called Threshold, where we will be keeping the binary version of the dataset
 cv2.imwrite('../Dataset/Multiple Cells/Blast/Threshold/Im001_1.png', bimarr)
 
 
