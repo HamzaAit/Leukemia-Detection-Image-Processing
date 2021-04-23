@@ -9,17 +9,20 @@ import math
 # im = Image.open("../Dataset/Single Cell/Blast/Im001_1.tif")
 im = cv2.imread("../Dataset/Single Cell/Blast/Im001_1.tif")
 
+thresh = 110
 
 imarr = np.copy(asarray(im))
 newimarr = np.copy(asarray(im))
 
-n = 257
+n = len(imarr)
 
-newimarr.resize((257,257,4))
+m = len(imarr[0])
+
+newimarr.resize((n, m, 4))
 
 
 for i in range(n):
-    for j in range(n):
+    for j in range(m):
         newimarr[i][j][0] = imarr[i][j][0]
         newimarr[i][j][1] = imarr[i][j][1]
         newimarr[i][j][2] = imarr[i][j][2]
@@ -40,7 +43,7 @@ ax[1].set_title("Grayscale")
 
 # Converting the grayscale image to binary, then adding it to the list of figures under title "Binary"
 
-thresh = 110
+
 
 bimarr = np.copy(asarray(gim))
 
@@ -56,30 +59,41 @@ bim = Image.fromarray(bimarr)
 
 ax[2].imshow(bim, 'gray')
 ax[2].set_title("Binary")
-plt.show()
+# plt.show()
 
 # Area opening done manually using a sliding window, which will check if any black pixels are surrounded by white pixels, if so, make them white
 
-wl = 20
+wl = 60
+print(len(bimarr))
+for i in range (n):
+    bimarr[i][0] = 255
+    bimarr[0][i] = 255
+    bimarr[n-1][i] = 255
+    bimarr[i][m-1] = 255
+
 for i in range(n - wl):
-    for j in range(n - wl):
+    for j in range(m - wl):
         valid = True
         for k in range (i, i + wl):
-            if (bimarr[k][j] == 0):
+            if (bimarr[k][j] == 0 and i < n - wl):
                 valid = False
                 break
-            if (bimarr[k][j + wl] == 0):
+            if (bimarr[k][j + wl] == 0 and i < n - wl):
                 valid = False
                 break
         if (valid == False):
             continue
         for k in range (j, j + wl):
-            if (bimarr[i][k] == 0):
+            if (bimarr[i][k] == 0 and j < n - wl):
                 valid = False
                 break
-            if (bimarr[i + wl][k] == 0):
+            if (bimarr[i + wl][k] == 0 and j < n - wl):
                 valid = False
                 break
+        if (j == 0 or j == n-1 or j + wl == m - 1):
+            valid = True
+        if (i == 0 or i == n-1 or i + wl >= n - 1):
+            valid = True
         if (valid == False):
             continue
         for x in range(i, i + wl):
@@ -105,7 +119,7 @@ done = False
 for i in range (n):
     if(done):
         break
-    for j in range (n):
+    for j in range (m):
         if(bimarr[i][j] == 0):
             up = i
             done = True
@@ -115,14 +129,14 @@ done = False
 for i in range (n):
     if(done):
         break
-    for j in range (n):
+    for j in range (m):
         if(bimarr[n - i - 1][j] == 0):
             down = n - i - 1
             done = True
             break
 
 done = False
-for j in range (n):
+for j in range (m):
     if(done):
         break
     for i in range (n):
@@ -132,12 +146,12 @@ for j in range (n):
             break
 
 done = False
-for j in range (n):
+for j in range (m):
     if(done):
         break
     for i in range (n):
-        if(bimarr[i][n - j - 1] == 0):
-            right = n - j - 1
+        if(bimarr[i][m - j - 1] == 0):
+            right = m - j - 1
             done = True
             break
 
@@ -155,7 +169,7 @@ rectim.show()
 
 wl = 20
 for i in range(n - wl):
-    for j in range(n - wl):
+    for j in range(m - wl):
         valid = True
         for k in range (i, i + wl):
             if (bimarr[k][j] == 255):
