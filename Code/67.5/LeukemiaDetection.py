@@ -167,9 +167,6 @@ for i in range(100):
 
     circularity = 4 * math.pi * area / (perimeter * perimeter)
 
-    if(area > 18000 or area < 3000):
-        continue
-
     Areas.append(area)
     Perimeters.append(perimeter)
     Circularities.append(circularity)
@@ -312,9 +309,6 @@ for i in range(131, 231):
 
     circularity = 4 * math.pi * area / (perimeter * perimeter)
 
-    if(area > 18000 or area < 3000):
-        continue
-
     Areas.append(area)
     Perimeters.append(perimeter)
     Circularities.append(circularity)
@@ -323,7 +317,7 @@ for i in range(131, 231):
 
 features = list(zip(Areas, Perimeters, Circularities))
 
-model = KNeighborsClassifier(n_neighbors=6)
+model = KNeighborsClassifier(n_neighbors=3)
 
 # Train the model using the training sets
 model.fit(features,Labels)
@@ -502,9 +496,6 @@ for i in range(101, 121):
 
     circularity = 4 * math.pi * area / (perimeter * perimeter)
 
-    if(area > 18000 or area < 3000):
-        continue
-
     predicted= model.predict([[area,perimeter,circularity]])
     print(predicted)
 
@@ -669,9 +660,6 @@ for i in range(240, 260):
     print(area, perimeter)
 
     circularity = 4 * math.pi * area / (perimeter * perimeter)
-
-    if(area > 18000 or area < 3000):
-        continue
 
     predicted= model.predict([[area,perimeter,circularity]])
     print(predicted)

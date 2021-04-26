@@ -4,12 +4,27 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 import math
+import sys
 
 
 # im = Image.open("../Dataset/Single Cell/Blast/Im001_1.tif")
-im = cv2.imread("../Dataset/Single Cell/Blast/Im001_1.tif")
+im = cv2.imread("../Dataset/Single Cell/Blast/Im047_1.tif")
 
-thresh = 110
+im2 = Image.open("../Dataset/Single Cell/Blast/Im047_1.tif")
+
+clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+imarr2 = np.copy(asarray(im2.split()[0]))
+im2 = Image.fromarray(imarr2)
+
+im2.save("../Dataset/Single Cell/gray.jpg")
+
+imarr2 = clahe.apply(imarr2)
+
+im2 = Image.fromarray(imarr2)
+
+im2.save("../Dataset/Single Cell/clahe.jpg")
+
+thresh = 100
 
 imarr = np.copy(asarray(im))
 newimarr = np.copy(asarray(im))
@@ -56,6 +71,7 @@ for i in range (bimarr.shape[0]):
 
 bim = Image.fromarray(bimarr)
 
+bim.save("../Dataset/Single Cell/binary.jpg")
 
 ax[2].imshow(bim, 'gray')
 ax[2].set_title("Binary")
@@ -102,7 +118,8 @@ for i in range(n - wl):
 
 cleanimg = Image.fromarray(bimarr)
 
-cleanimg.show()
+cleanimg.save("../Dataset/Single Cell/clean.jpg")
+
 
 # cv2.imwrite('../Dataset/Single Cell/Im001_1.png', cleanimg)
 cleanimg.save('../Dataset/Single Cell/Im001_1.png')
@@ -195,7 +212,9 @@ for i in range(n - wl):
 
 cleanimg = Image.fromarray(bimarr)
 
-cleanimg.show()
+cleanimg.save("../Dataset/Single Cell/Hole Filling.jpg")
+
+sys.exit()
 
 # Calculate area and perimeter and circularity
 

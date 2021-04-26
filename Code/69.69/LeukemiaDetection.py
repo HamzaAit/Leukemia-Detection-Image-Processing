@@ -323,7 +323,7 @@ for i in range(131, 231):
 
 features = list(zip(Areas, Perimeters, Circularities))
 
-model = KNeighborsClassifier(n_neighbors=6)
+model = KNeighborsClassifier(n_neighbors=5)
 
 # Train the model using the training sets
 model.fit(features,Labels)
@@ -699,3 +699,5 @@ print("The total accuracy is: ", accuracy)
 print("Blast cells are detected at an accuracy rate of: ", accuracyblast)
 
 print("Healthy cells are detected at an accuracy rate of: ", accuracyhealthy)
+
+# Recall, F1, Precision
