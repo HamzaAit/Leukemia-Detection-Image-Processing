@@ -84,6 +84,7 @@ for i in range(100):
                 imarr[i][j] = 0
 
 
+    
 
 
     imarr = cv2.morphologyEx(imarr, cv2.MORPH_CLOSE, (10,10), iterations=3)
@@ -117,6 +118,12 @@ for i in range(100):
             for x in range(i, i + wl):
                 for y in range (j, j + wl):
                     imarr[x][y] = 255
+
+    reverseimg = Image.fromarray(imarr)
+
+    reverseimg.save("../Dataset/Single Cell/reverse.jpg")
+
+    sys.exit()
 
     sys.setrecursionlimit(250000)
 
@@ -158,8 +165,6 @@ for i in range(100):
     ret, res = cv2.threshold(imarr, 250,255,0)
 
     contours = cv2.findContours(res, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)[0]
-
-    print(getArea(contours))
 
     area, perimeter = getArea(contours)
 
@@ -234,6 +239,9 @@ for i in range(131, 231):
             for x in range(i, i + wl):
                 for y in range (j, j + wl):
                     imarr[x][y] = 0
+    
+
+
 
 
     for i in range(n):

@@ -214,7 +214,6 @@ cleanimg = Image.fromarray(bimarr)
 
 cleanimg.save("../Dataset/Single Cell/Hole Filling.jpg")
 
-sys.exit()
 
 # Calculate area and perimeter and circularity
 
