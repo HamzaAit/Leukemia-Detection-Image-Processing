@@ -343,9 +343,9 @@ trialsblast = 0
 
 trialshealthy = 0
 
-successblast = 0
+truepositive = 0
 
-successhealthy = 0
+truenegative = 0
 
 for i in range(101, 121):
     path = "../Dataset/Single Cell/Blast/Im"
@@ -513,7 +513,7 @@ for i in range(101, 121):
 
     if(predicted[0] == 1):
         success += 1
-        successblast += 1
+        truepositive += 1
     
 for i in range(240, 260):
     path = "../Dataset/Single Cell/Healthy/Im"
@@ -681,7 +681,7 @@ for i in range(240, 260):
 
     if(predicted[0] == 0):
         success += 1
-        successhealthy += 1
+        truenegative += 1
 
 
 # #Predict Output
@@ -690,14 +690,57 @@ for i in range(240, 260):
 
 accuracy = success / trials
 
-accuracyblast = successblast / trialsblast
+accuracyblast = truepositive / trialsblast
 
-accuracyhealthy = successhealthy / trialshealthy
+accuracyhealthy = truenegative / trialshealthy
+
+falsenegative = trialsblast - truepositive
+
+falsepositive = trialshealthy - truenegative
 
 print("The total accuracy is: ", accuracy)
 
 print("Blast cells are detected at an accuracy rate of: ", accuracyblast)
 
 print("Healthy cells are detected at an accuracy rate of: ", accuracyhealthy)
+
+print("The amount of true positives is: ", truepositive)
+
+print("The amount of false positives is: ", falsepositive)
+
+print("The amount of true negatives is: ", truenegative)
+
+print("The amount of false negatives is: ", falsenegative)
+
+tp = truepositive
+fp = falsepositive
+tn = truenegative
+fn = falsenegative
+
+errorrate = (fn + fp) / trials
+
+print ("Error Rate is: ", errorrate)
+
+sensitivity =  tp / (tp + fn)
+
+print ("Sensitivity is: ", sensitivity)
+
+specificity = tn / (tn + fp)
+
+print ("Specificity is: ", specificity)
+
+precision = tp / (tp + fp)
+
+print ("Precision is: ", precision)
+
+recall = tp / (tp + tn)
+
+print ("Recall is: ", recall)
+
+F1 = 2 * precision * recall / (precision + recall)
+
+print ("F1 is: ", F1)
+
+
 
 # Recall, F1, Precision
